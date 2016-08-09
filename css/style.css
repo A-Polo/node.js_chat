@@ -1,0 +1,26 @@
+.main{
+    width: 900px;
+    margin: 0 auto;
+}
+#chat{
+    height: 500px;
+}
+#contentWrap{
+    display: none;
+}
+#contentWrap::before{
+    content: '';
+    display: table;
+}
+#contentWrap::after{
+    content: '';
+    display: table;
+    clear: both;
+}
+#chatWrap{
+    float: left;
+    margin-right: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    box-sizing: border-box;
+}

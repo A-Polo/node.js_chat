@@ -2,34 +2,7 @@
 <html>
 <head>
 	<title>Chat</title>
-	<style>
-		.main{
-			width: 900px;
-			margin: 0 auto;
-		}
-		#chat{
-			height: 500px;
-		}
-		#contentWrap{
-			display: none;
-		}
-		#contentWrap::before{
-			content: '';
-			display: table;
-		}
-		#contentWrap::after{
-			content: '';
-			display: table;
-			clear: both;
-		}
-		#chatWrap{
-			float: left;
-			margin-right: 20px;
-			border: 1px solid #ccc;
-			padding: 15px;
-			box-sizing: border-box;
-		}
-	</style>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<section class="main">
@@ -55,48 +28,6 @@
 	</section>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		jQuery(function($){
-			var socket = io.connect();
-			var $nickForm = $('#setNick');
-			var $nickError = $('#nickError');
-			var $nickBox = $('#nickname');
-			var $users = $('#users');
-			var $messageForm = $('#send-message');
-			var $messageBox = $('#message');
-			var $chat = $('#chat');
-
-			$nickForm.submit(function(e){
-				e.preventDefault();
-				socket.emit('new user', $nickBox.val(), function(data){
-					if (data) {
-						$('#nickWrap').hide();
-						$('#contentWrap').show();
-					} else{
-						$nickError.html('Sorry! Try again!');
-					}
-				});
-				$nickBox.val('');
-			});
-
-			socket.on('usernames', function(data){
-				var html = '';
-				for(i=0; i < data.length; i++){
-					html += data[i] + '<br>'
-				} 
-				$users.html(html);
-			})
-
-			$messageForm.submit(function(e){
-				e.preventDefault();
-				socket.emit('send message', $messageBox.val());
-				$messageBox.val('');
-			});
-
-			socket.on('new message', function(data){
-				$chat.append('<b>' + data.nick + ': </b>' + data.msg + "<br>");
-			});
-		});
-	</script>
+	<script src="common.js"></script>
 </body>
 </html>
